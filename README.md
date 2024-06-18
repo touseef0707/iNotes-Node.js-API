@@ -50,16 +50,13 @@ iNotes-Node.js-API is a RESTful API developed with Node.js and MongoDB, inspired
 
 ### Auth Routes
 
-- **Register**: `POST /api/auth/register`
+- **Create User**: `POST /api/auth/createuser`
 - **Login**: `POST /api/auth/login`
+- **Get User**: `GET /api/auth/getuser`
 
 ### Note Routes
 
-- **Get All Notes**: `GET /api/notes`
-- **Create Note**: `POST /api/notes`
+- **Add Note**: `POST /api/notes/addnote`
+- **Get All Notes**: `GET /api/notes/fetchallnotes`
 - **Update Note**: `PUT /api/notes/:id`
 - **Delete Note**: `DELETE /api/notes/:id`
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
