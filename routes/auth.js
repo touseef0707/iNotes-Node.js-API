@@ -1,11 +1,12 @@
 const express = require('express');
-const router = express.Router();
 const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'iNote$R@inyJ0ke';
 const fetchuser = require('../middleware/fetchuser');
+
+const router = express.Router();
 const User = require('../models/User');
+const JWT_SECRET = 'iNote$R@inyJ0ke';
 
 
 const validationQueries = [

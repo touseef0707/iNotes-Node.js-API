@@ -1,6 +1,6 @@
 # iNotes-Node.js-API
 
-iNotes-Node.js-API is a RESTful API developed with Node.js and MongoDB, inspired by @codewithharry tutorials. It supports secure user authentication and CRUD operations for managing notes.
+iNotes-Node.js-API is a RESTful API developed with Node.js and MongoDB, inspired by [CodeWithHarry](https://www.codewithharry.com/) tutorials. It supports secure user authentication and CRUD operations for managing notes.
 
 ## Features
 
