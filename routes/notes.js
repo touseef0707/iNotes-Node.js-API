@@ -103,4 +103,23 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
     }
 })
 
+// Route 5: Fetch a single note using: GET "/api/notes/fetchnote". Login required
+router.get('/viewnote/:id', fetchuser, async (req, res) => {
+    try{
+        let note = await Notes.findById(req.params.id);
+        
+        if(!note){return res.status(404).send("Note Not Found")}
+        
+        if(note.user.toString() !== req.user.id){
+            return res.status(401).send("Access Denied");
+        }
+
+        res.json({note});
+
+    } catch (error){
+        console.error(error.message)
+        return res.status(500).send("Internal Server Error")
+    }
+})
+
 module.exports = router;

@@ -18,9 +18,10 @@ const validationQueries = [
 // Route 1: Create a user using: POST "/api/auth/createuser". No login required
 router.post('/createuser', validationQueries, async (req, res) => {
 
+    let success = false;
     // Returns Bad request if error
     if (!validationResult(req).isEmpty()) {
-        return res.status(400).json({errors: validationResult(req).array()});
+        return res.status(400).json({success, errors: validationResult(req).array()});
     }
 
     // creating user without async await
@@ -42,7 +43,7 @@ router.post('/createuser', validationQueries, async (req, res) => {
         // Check whether the user with this email exists already
         let user = await User.findOne({email: req.body.email});
         if(user){
-            return res.status(400).json({error: "Sorry, a user with this email already exists."});
+            return res.status(400).json({success, error: "Sorry, a user with this email already exists."});
         }
 
         // Hashing the password
@@ -66,15 +67,16 @@ router.post('/createuser', validationQueries, async (req, res) => {
         // create token
         const auth_token = jwt.sign(data, JWT_SECRET);
         // res.json({"success": "User was created successfully", "user": user});
-
+        success = true;
         // send token
-        res.json({auth_token});
+        res.json({success, auth_token});
 
 
     } catch (error) {
         // return errors
+        success = false;
         console.log(error);
-        return res.status(500).json({error: "Internal Server Error"});
+        return res.status(500).json({success, error: "Internal Server Error"});
     }
 
 })
@@ -82,10 +84,11 @@ router.post('/createuser', validationQueries, async (req, res) => {
 
 // Route 2: Authenticate a user using: POST "/api/auth/login". No login required
 router.post('/login', validationQueries.slice(1), async (req, res) => {
-    
+
+        let success = false
         // Returns Bad request if error
         if (!validationResult(req).isEmpty()) {
-            return res.status(400).json({errors: validationResult(req).array()});
+            return res.status(400).json({success, errors: validationResult(req).array()});
         }
     
         const {email, password} = req.body;
@@ -96,13 +99,13 @@ router.post('/login', validationQueries.slice(1), async (req, res) => {
             
             // Check whether the user with this email exists already
             if(!user){
-                return res.status(400).json({error: "Please try to login with correct credentials"});
+                return res.status(400).json({success, error: "Please try to login with correct credentials"});
             }
             
             // compare password with bcrypt
             const passwordCompare = await bcrypt.compare(password, user.password);
             if(!passwordCompare){
-                return res.status(400).json({error: "Please try to login with correct credentials"});
+                return res.status(400).json({success, error: "Please try to login with correct credentials"});
             }
 
             // get index of user
@@ -116,7 +119,8 @@ router.post('/login', validationQueries.slice(1), async (req, res) => {
             const auth_token = jwt.sign(data, JWT_SECRET);
 
             // send token
-            res.json({auth_token});
+            success = true;
+            res.json({success, auth_token});
     
         } catch (error) {
             // return errors
