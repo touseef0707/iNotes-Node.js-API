@@ -36,7 +36,7 @@ iNotes-Node.js-API is a RESTful API developed with Node.js and MongoDB, inspired
    npm install
    ```
 3. **Set up environment variables**
-   Create a `.env` file in the root directory and add the following variables:
+   Edit the following variables:
    ```
    MONGO_URI=your-mongodb-connection-string
    JWT_SECRET=your-secret-key
